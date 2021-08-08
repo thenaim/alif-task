@@ -1,5 +1,4 @@
 import { Action, createFeatureSelector, createReducer, on } from '@ngrx/store';
-import { AppState } from 'src/app/core/store/store.state.model';
 import { TasksStateModel } from '../tasks.model';
 import * as taskActions from './tasks.actions';
 

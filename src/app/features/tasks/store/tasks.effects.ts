@@ -6,16 +6,13 @@ import {
   catchError,
   switchMap,
   withLatestFrom,
-  filter,
   mergeMap,
-  exhaustMap,
-  first,
 } from 'rxjs/operators';
-import { ApiService } from 'src/app/core/services/api/api.service';
+import { ApiService } from '../../../core/services/api/api.service';
 import * as tasksAction from './tasks.actions';
-import { apiCreateTask, apiTasksUrls } from '../tasks.constant';
+import { apiTasksUrls } from '../tasks.constant';
 import { selectTasks, selectTasksLastId } from './tasks.selectors';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class TasksEffects {

@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { selectUsers } from 'src/app/features/users/store/users.selectors';
+import { selectUsers } from '../../../users/store/users.selectors';
 import { editTask } from '../../store/tasks.actions';
 import { AddTaskModalComponent } from '../add-task-modal/add-task-modal.component';
 import { Task } from '../../tasks.model';

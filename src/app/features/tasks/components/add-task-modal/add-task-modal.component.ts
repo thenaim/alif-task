@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { withLatestFrom } from 'rxjs/operators';
-import { selectUsers } from 'src/app/features/users/store/users.selectors';
+import { selectUsers } from '../../../users/store/users.selectors';
 import { createTask } from '../../store/tasks.actions';
 
 @Component({
