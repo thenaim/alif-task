@@ -1,0 +1,19 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+  <button
+    mat-raised-button
+    color="primary"
+    class="ms-3 me-3"
+    [disabled]="isLoading"
+    (click)="addTaskAction()"
+  >
+    Add task
+  </button>
+  <mat-form-field
+    appearance="outline"
+    class="task-search pt-3 ms-3 me-3"
+    style="width: 220px"
+  >
+    <mat-label>Search</mat-label>
+    <input matInput placeholder="Search" [formControl]="searchControl" />
+  </mat-form-field>
+</div>

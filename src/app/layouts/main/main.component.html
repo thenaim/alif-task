@@ -1,0 +1,22 @@
+<div class="layout-container">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span class="ms-2 me-4">Alif test</span>
+      <div class="toolbar-menu-row">
+        <a
+          mat-button
+          *ngFor="let toolbarLink of toolbarLinks"
+          [routerLink]="toolbarLink.link"
+          routerLinkActive="toolbar-menu-active"
+        >
+          {{ toolbarLink.title }}
+        </a>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-sidenav-container>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

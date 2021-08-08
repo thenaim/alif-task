@@ -1,0 +1,30 @@
+<form [formGroup]="addUserForm" (ngSubmit)="onAddUser()">
+  <h1 mat-dialog-title>Add new task</h1>
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Task Title</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Select user</mat-label>
+      <mat-select formControlName="userId">
+        <mat-option *ngFor="let user of users$ | async" [value]="user.id">
+          {{ user.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="completed">
+        <mat-option [value]="true">Completed</mat-option>
+        <mat-option [value]="false">Not completed</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button type="button" (click)="closeModal()">Cancel</button>
+    <button mat-button type="submit" color="primary" cdkFocusInitial>
+      Add
+    </button>
+  </div>
+</form>
