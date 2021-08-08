@@ -17,5 +17,11 @@ import { TasksHeaderActionsComponent } from './components/tasks-header-actions/t
     TasksHeaderActionsComponent,
   ],
   imports: [CommonModule, SharedModule, TasksRoutingModule],
+  entryComponents: [
+    AddTaskModalComponent,
+    RemoveTaskModalComponent,
+    EditTaskModalComponent,
+    TasksHeaderActionsComponent,
+  ],
 })
 export class TasksModule {}
