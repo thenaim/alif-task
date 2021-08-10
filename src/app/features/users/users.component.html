@@ -16,10 +16,7 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
       <td mat-cell *matCellDef="let element">
-        <a
-          [routerLink]="['/app', 'users', element.userId]"
-          *ngIf="element?.username"
-        >
+        <a [routerLink]="['/app', 'users', element.id]">
           {{ element.username }}
         </a>
       </td>
@@ -69,6 +66,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
-
-  <p class="text-center" *ngIf="usersIsLoading$ | async">Загрузка...</p>
 </div>

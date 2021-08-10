@@ -34,15 +34,15 @@ export class UsersComponent implements OnInit {
     'company',
   ];
   dataSource: MatTableDataSource<User>;
+
   private destroy$ = new Subject<void>();
   constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(getUsers());
-
-    this.users$.pipe(takeUntil(this.destroy$)).subscribe((users) => {
-      this.dataSource = new MatTableDataSource(users);
-    });
+    this.users$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((users) => (this.dataSource = new MatTableDataSource(users)));
   }
 
   ngOnDestroy() {

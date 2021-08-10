@@ -15,25 +15,36 @@ export const initialState: TasksStateModel = {
 const reducer = createReducer(
   initialState,
 
-  on(taskActions.getTasks, (state) => ({ ...state, isLoading: true })),
+  // Get tasks
+  on(taskActions.getTasks, (state) => ({
+    ...state,
+    isLoading: true,
+    isLoadingSuccess: false,
+    isLoadingFailure: false,
+  })),
   on(taskActions.getTasksSuccess, (state, result) => ({
     ...state,
     listData: result.response,
     isLoading: false,
     isLoadingSuccess: true,
+    isLoadingFailure: false,
   })),
   on(taskActions.getTasksFailure, (state, result) => ({
     ...state,
+    isLoading: false,
+    isLoadingSuccess: false,
     isLoadingFailure: true,
   })),
 
+  // Create tasks
   on(taskActions.createTask, (state) => ({ ...state })),
   on(taskActions.createTaskSuccess, (state, result) => ({
     ...state,
-    listData: [...state.listData, result],
+    listData: [...state.listData, result.payload],
   })),
   on(taskActions.createTaskFailure, (state, result) => ({ ...state })),
 
+  // Edit tasks
   on(taskActions.editTask, (state, result) => ({
     ...state,
     listData: state.listData.map((task) => {
@@ -46,14 +57,16 @@ const reducer = createReducer(
   on(taskActions.editTaskSuccess, (state, result) => ({ ...state })),
   on(taskActions.editTaskFailure, (state, result) => ({ ...state })),
 
+  // Delete tasks
   on(taskActions.deleteTask, (state, result) => ({
     ...state,
     listData: state.listData.filter((task) => task.id !== result.payload.id),
   })),
 
+  // Search tasks
   on(taskActions.searchTask, (state, result) => ({
     ...state,
-    search: result.search,
+    search: result.payload.search,
   }))
 );
 

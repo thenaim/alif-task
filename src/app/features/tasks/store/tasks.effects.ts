@@ -9,10 +9,17 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 import { ApiService } from '../../../core/services/api/api.service';
-import * as tasksAction from './tasks.actions';
 import { apiTasksUrls } from '../tasks.constant';
 import { selectTasks, selectTasksLastId } from './tasks.selectors';
 import { Store } from '@ngrx/store';
+import {
+  createTask,
+  createTaskFailure,
+  createTaskSuccess,
+  getTasks,
+  getTasksFailure,
+  getTasksSuccess,
+} from './tasks.actions';
 
 @Injectable()
 export class TasksEffects {
@@ -24,38 +31,40 @@ export class TasksEffects {
 
   getTasks$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(tasksAction.getTasks),
+      ofType(getTasks),
       withLatestFrom(this.store.select(selectTasks)),
-      mergeMap(([action, tasks]) => {
+      mergeMap(([_, tasks]) => {
         if (!tasks.length) {
           return this.apiService.get(apiTasksUrls).pipe(
-            map((response) => tasksAction.getTasksSuccess({ response })),
-            catchError((error: any) => of(tasksAction.getTasksFailure(error)))
+            map((response) => getTasksSuccess({ response })),
+            catchError((error: any) => of(getTasksFailure(error)))
           );
         }
-        return of(tasksAction.getTasksSuccess({ response: tasks }));
+        return of(getTasksSuccess({ response: tasks }));
       })
     )
   );
 
   createTask$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(tasksAction.createTask),
+      ofType(createTask),
       switchMap((action) =>
         of(action).pipe(
           withLatestFrom(this.store.select(selectTasksLastId)),
           map(([action, lastTaskId]) =>
-            tasksAction.createTaskSuccess({
-              id: lastTaskId + 1,
-              title: action.payload.title,
-              userId: action.payload.userId,
-              completed: action.payload.completed,
-              username: undefined,
+            createTaskSuccess({
+              payload: {
+                id: lastTaskId + 1,
+                title: action.payload.title,
+                userId: action.payload.userId,
+                completed: action.payload.completed,
+                username: undefined,
+              },
             })
           )
         )
       ),
-      catchError((error: any) => of(tasksAction.createTaskFailure(error)))
+      catchError((error: any) => of(createTaskFailure(error)))
     )
   );
 }

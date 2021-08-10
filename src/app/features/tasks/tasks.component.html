@@ -9,7 +9,7 @@
     class="w-100"
     [isLoading]="!!(tasksIsLoading$ | async)"
     [debounceTime]="300"
-    (onAdTask)="onAdTask($event)"
+    (onAdTask)="onAdTask()"
     (onSearchTask)="onSeachTask($event)"
   ></app-tasks-header-actions>
 

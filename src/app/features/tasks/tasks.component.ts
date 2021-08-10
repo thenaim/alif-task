@@ -17,7 +17,6 @@ import { AddTaskModalComponent } from './components/add-task-modal/add-task-moda
 import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-modal.component';
 import { RemoveTaskModalComponent } from './components/remove-task-modal/remove-task-modal.component';
 import {
-  createTask,
   deleteTask,
   editTask,
   getTasks,
@@ -72,7 +71,7 @@ export class TasksComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSeachTask(search: string) {
-    this.store.dispatch(searchTask({ search }));
+    this.store.dispatch(searchTask({ payload: { search } }));
   }
 
   onChangeStatus(event: any, element: Task) {
@@ -81,7 +80,7 @@ export class TasksComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  onAdTask(event: boolean) {
+  onAdTask() {
     const dialogRef = this.dialog.open(AddTaskModalComponent, {
       width: '320px',
     });

@@ -1,19 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import {
-  map,
-  exhaustMap,
-  catchError,
-  filter,
-  withLatestFrom,
-  mergeMap,
-} from 'rxjs/operators';
+import { map, catchError, withLatestFrom, mergeMap } from 'rxjs/operators';
 import { ApiService } from '../../../core/services/api/api.service';
-import * as usersAction from './users.actions';
 import { apiUsersUrls } from '../users.constant';
 import { selectUsers } from './users.selectors';
 import { Store } from '@ngrx/store';
+import { getUsers, getUsersFailure, getUsersSuccess } from './users.actions';
 
 @Injectable()
 export class UsersEffects {
@@ -25,16 +18,16 @@ export class UsersEffects {
 
   getusers$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(usersAction.getUsers),
+      ofType(getUsers),
       withLatestFrom(this.store.select(selectUsers)),
-      mergeMap(([action, users]) => {
+      mergeMap(([_, users]) => {
         if (!users.length) {
           return this.apiService.get(apiUsersUrls).pipe(
-            map((response) => usersAction.getUsersSuccess({ response })),
-            catchError((error: any) => of(usersAction.getUsersFailure(error)))
+            map((response) => getUsersSuccess({ payload: response })),
+            catchError((error) => of(getUsersFailure({ payload: error })))
           );
         }
-        return of(usersAction.getUsersSuccess({ response: users }));
+        return of(getUsersSuccess({ payload: users }));
       })
     )
   );

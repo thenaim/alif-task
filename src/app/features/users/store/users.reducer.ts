@@ -14,11 +14,23 @@ export const initialState: UsersStateModel = {
 const reducer = createReducer(
   initialState,
 
-  on(usersActions.getUsers, (state) => ({ ...state, isLoading: true })),
-  on(usersActions.getUsersSuccess, (state, result) => ({
-    listData: result.response,
+  on(usersActions.getUsers, (state) => ({
+    ...state,
+    isLoading: true,
+    isLoadingSuccess: false,
+    isLoadingFailure: false,
+  })),
+  on(usersActions.getUsersSuccess, (_, result) => ({
+    listData: result.payload,
     isLoading: false,
     isLoadingSuccess: true,
+    isLoadingFailure: false,
+  })),
+  on(usersActions.getUsersFailure, (state, _) => ({
+    ...state,
+    isLoading: false,
+    isLoadingSuccess: false,
+    isLoadingFailure: true,
   }))
 );
 
