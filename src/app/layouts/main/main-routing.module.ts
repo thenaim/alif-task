@@ -20,11 +20,21 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'tasks/:taskId',
+        loadChildren: () =>
+          import('../../features/task/task.module').then((m) => m.TaskModule),
+      },
+      {
         path: 'users',
         loadChildren: () =>
           import('../../features/users/users.module').then(
             (m) => m.UsersModule
           ),
+      },
+      {
+        path: 'users/:userId',
+        loadChildren: () =>
+          import('../../features/user/user.module').then((m) => m.UserModule),
       },
     ],
   },
